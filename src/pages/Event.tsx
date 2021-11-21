@@ -1,20 +1,24 @@
-import { Breadcrumb } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
-import React from 'react'
+import React, {useEffect} from 'react'
+import {EventCalendar} from "../components/EventCalendar";
+import {useDispatch} from "react-redux";
+import {EventActionCreators} from "../store/reducers/events/action-creators";
 
 interface EventProps {
 
 }
 
 export const Event: React.FC<EventProps> = () => {
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(EventActionCreators.fetchGuests())
+        dispatch(EventActionCreators.fetchEvents())
+    }, [])
     return <>
         <Content style={{ padding: '0 50px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>Home</Breadcrumb.Item>
-                <Breadcrumb.Item>List</Breadcrumb.Item>
-                <Breadcrumb.Item>App</Breadcrumb.Item>
-            </Breadcrumb>
-            <div className="site-layout-content">Content</div>
+            <div className="site-layout-content">
+                <EventCalendar />
+            </div>
         </Content>
     </>;
 };

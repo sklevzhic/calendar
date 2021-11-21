@@ -13,6 +13,7 @@ interface HeaderProps {
 
 export const NavBar: React.FC<HeaderProps> = () => {
     const dispatch = useDispatch()
+
     const { isAuth, user } = useTypedSelector(state => state.authReducer)
     const logout = () => {
         dispatch(AuthActionCreators.logout())
