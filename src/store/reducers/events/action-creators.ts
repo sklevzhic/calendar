@@ -1,7 +1,6 @@
 import {IEvent, IGuest} from "../../../models/Event";
 import { EventActionEnum, setEventsAction, SetGuestsAction } from "./type";
 import {AppDispatch} from "../../index";
-import axios from "axios";
 import {eventsAPI} from "../../../api/events";
 
 export const EventActionCreators = {
@@ -10,6 +9,7 @@ export const EventActionCreators = {
     fetchGuests: () => async (dispatch: AppDispatch) => {
         try {
             let response = await eventsAPI.fetchGuests()
+
             dispatch(EventActionCreators.setGuests(response.data))
         } catch (e) {
             console.log(e)

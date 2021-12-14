@@ -1,10 +1,11 @@
-import { Button, Card, Col, Form, Input, Row} from 'antd';
+import {Button, Card, Col, Form, Input, Row} from 'antd';
 import {Content} from 'antd/lib/layout/layout';
 import React, {useState} from 'react'
 import {IUser} from "../models/Auth";
 import {useDispatch} from "react-redux";
 import {AuthActionCreators} from "../store/reducers/auth/action-creators";
 import {useTypedSelector} from "../hooks/useTypedSelector";
+import {CopyText} from "../components/CopyText";
 
 
 interface LoginProps {
@@ -26,6 +27,10 @@ export const Login: React.FC<LoginProps> = () => {
         <Row justify="center">
             <Col span={10}>
                 <Card style={{marginTop: '20px'}}>
+                    <p>Данные для входа:
+                        логин: <CopyText description={"alexander1"}/>,
+                        пароль: <CopyText description={"1111"}/>
+                    </p>
                     <Form
                         onFinish={onFinish}
                     >
@@ -42,7 +47,7 @@ export const Login: React.FC<LoginProps> = () => {
                             name="password"
                             rules={[{required: true, message: 'Please input your password!'}]}
                         >
-                            <Input.Password  onChange={(e) => setPassword(e.target.value)}/>
+                            <Input.Password onChange={(e) => setPassword(e.target.value)}/>
                         </Form.Item>
                         {
                             error && <p style={{color: "red"}}>{error}</p>

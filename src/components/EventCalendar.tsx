@@ -1,4 +1,4 @@
-import {Badge, Button, Calendar, Modal, Row, Tag} from 'antd';
+import { Button, Calendar, Modal, Row, Tag} from 'antd';
 import React, {useState} from 'react'
 import {EventForm} from "./EnentForm";
 import {Moment} from "moment";
@@ -28,7 +28,7 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
         return (
             <div className="events">
                 {obj.map((item, i) => {
-                    return <Tag closable onClose={() => deleteEvent(item)}>
+                    return <Tag key={i} closable onClose={() => deleteEvent(item)}>
                         {item.content}
                     </Tag>
                 })}

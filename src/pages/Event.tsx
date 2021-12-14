@@ -13,7 +13,7 @@ export const Event: React.FC<EventProps> = () => {
     useEffect(() => {
         dispatch(EventActionCreators.fetchGuests())
         dispatch(EventActionCreators.fetchEvents())
-    }, [])
+    })
     return <>
         <Content style={{ padding: '0 50px' }}>
             <div className="site-layout-content">

@@ -1,7 +1,6 @@
 import {Button, DatePicker, Form, Input, Select} from 'antd';
 import React, {useState} from 'react'
 import {IEvent} from "../models/Event";
-import {useTypedSelector} from "../hooks/useTypedSelector";
 import {Moment} from "moment";
 import {formatDate} from "../utils/date";
 import {useDispatch} from "react-redux";

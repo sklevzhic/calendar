@@ -10,9 +10,9 @@ function App() {
     const dispatch = useDispatch()
     useEffect(() => {
         if (localStorage.getItem("auth")) {
-            dispatch(AuthActionCreators.setIsAuth(true))
+            dispatch(AuthActionCreators.checkAuth())
         }
-    }, [])
+    })
 
 
     return (
