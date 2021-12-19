@@ -1,14 +1,25 @@
-export interface IPrinter{
-    "id": string | number,
+export interface IPrinter {
+    "id": string,
     "userId": string | number,
-    "type": string,
     "name": string,
-    "year": string | number,
     "invent": string | number,
     "zavod": string | number,
     "matfyo": string | number,
     "room": string | number,
     "build": string | number,
     "print": boolean,
-    "user": string | number,
+    "device": IModel
+}
+
+export interface IUser {
+    "id": string | number,
+    "name": string,
+}
+
+export interface IModel {
+    "id": string | number,
+    "type": string,
+    "name": string,
+    "year": string | number,
+    "cartridge"?: string
 }
