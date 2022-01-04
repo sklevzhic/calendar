@@ -3,7 +3,8 @@ import {EventActions, TechnicsActionEnum, TechnicsState} from "./type";
 const initialState: TechnicsState = {
     printers: [],
     users: [],
-    models: []
+    models: [],
+    refills: []
 }
 
 export const TechnicReducer = (state = initialState, action: EventActions): TechnicsState => {
@@ -18,7 +19,8 @@ export const TechnicReducer = (state = initialState, action: EventActions): Tech
          return { ...state, users: action.payload}
      case TechnicsActionEnum.SET_MODELS:
          return { ...state, models: action.payload}
-
+     case TechnicsActionEnum.SET_REFILLS:
+         return { ...state, refills: action.payload}
      default:
          return state
  }

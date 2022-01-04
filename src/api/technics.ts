@@ -1,5 +1,5 @@
 import axios from "axios";
-import {IModel, IPrinter, IUser} from "../models/Technics";
+import {IModel, IPrinter, IRefill, IUser} from "../models/Technics";
 
 export const technicsApi = {
     fetchPrinters() {
@@ -16,6 +16,9 @@ export const technicsApi = {
     },
     fetchModels() {
         return axios.get<IModel[]>(`http://localhost:1337/models`).then(response => response.data)
+    },
+    fetchRefills() {
+        return axios.get<IRefill[]>(`http://localhost:1337/refills`).then(response => response.data)
     },
     getUserName(id: string | number) {
         return axios.get(`http://localhost:1337/users/${id}`).then(response => response.data.user[0].name)

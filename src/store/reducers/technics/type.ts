@@ -1,9 +1,10 @@
-import {IModel, IPrinter, IUser} from "../../../models/Technics";
+import {IModel, IPrinter, IRefill, IUser} from "../../../models/Technics";
 
 export interface TechnicsState {
     printers: IPrinter[],
     users: IUser[],
-    models: IModel[]
+    models: IModel[],
+    refills: IRefill[]
 }
 
 export enum TechnicsActionEnum {
@@ -11,8 +12,8 @@ export enum TechnicsActionEnum {
     SET_DEVICE = 'SET_DEVICE',
     DELETE_DEVICE = 'DELETE_DEVICE',
     SET_USERS = "SET_USERS",
-    SET_MODELS = "SET_MODELS"
-
+    SET_MODELS = "SET_MODELS",
+    SET_REFILLS = "SET_REFILLS"
 }
 
 
@@ -31,8 +32,6 @@ export interface DeleteDeviceAction {
     payload: string | number
 }
 
-//
-
 export interface SetUsersAction {
     type: TechnicsActionEnum.SET_USERS,
     payload: IUser[]
@@ -41,6 +40,10 @@ export interface SetUsersAction {
 export interface SetModelsAction {
     type: TechnicsActionEnum.SET_MODELS,
     payload: IModel[]
+}
+export interface SetRefillsAction {
+    type: TechnicsActionEnum.SET_REFILLS,
+    payload: IRefill[]
 }
 
 
@@ -51,3 +54,4 @@ export type EventActions =
     | DeleteDeviceAction
     | SetUsersAction
     | SetModelsAction
+    | SetRefillsAction
