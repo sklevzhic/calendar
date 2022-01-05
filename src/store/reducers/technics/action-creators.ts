@@ -1,5 +1,3 @@
-import {IEvent, IGuest} from "../../../models/Event";
-// import { EventActionEnum, setEventsAction, SetGuestsAction } from "./type";
 import {AppDispatch} from "../../index";
 import {IModel, IPrinter, IRefill, IUser} from "../../../models/Technics";
 import {
