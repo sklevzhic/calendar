@@ -1,5 +1,6 @@
 import axios from "axios";
-export const API_URL = `https://mongoklevzhits.herokuapp.com/`
+export const API_URL = `https://printersipkip.herokuapp.com/`
+export const API_AUTH_URL = `https://mongoklevzhits.herokuapp.com/`
 // export const API_URL = `http://localhost:5000/`
 
 const instance = axios.create({
@@ -7,7 +8,12 @@ const instance = axios.create({
     withCredentials: true
 })
 
-instance.interceptors.request.use((config) => {
+const instanceAuth = axios.create({
+    baseURL: API_AUTH_URL,
+    withCredentials: true
+})
+
+instanceAuth.interceptors.request.use((config) => {
     if (!config) {
         config = {};
     }

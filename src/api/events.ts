@@ -1,8 +1,8 @@
 import {IGuest} from "../models/Event";
-import instance from "./api";
+import instanceAuth from "./api";
 
 export const eventsAPI = {
     fetchGuests() {
-        return instance.get<IGuest[]>("auth/users")
+        return instanceAuth.get<IGuest[]>("auth/users")
     }
 }
