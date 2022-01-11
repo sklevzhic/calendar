@@ -5,6 +5,7 @@ import {IGuest} from "../models/Event";
 import instance from "./api";
 
 let URL = 'https://printersipkip.herokuapp.com'
+// let URL = `http://localhost:1337`
 
 export const technicsApi = {
     fetchPrinters() {

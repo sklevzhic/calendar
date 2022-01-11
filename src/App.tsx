@@ -8,11 +8,11 @@ import {AuthActionCreators} from "./store/reducers/auth/action-creators";
 
 function App() {
     const dispatch = useDispatch()
-    useEffect(() => {
-        if (localStorage.getItem("auth")) {
-            dispatch(AuthActionCreators.checkAuth())
-        }
-    })
+    // useEffect(() => {
+    //     if (localStorage.getItem("auth")) {
+    //         dispatch(AuthActionCreators.checkAuth())
+    //     }
+    // })
 
 
     return (

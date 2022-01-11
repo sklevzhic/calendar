@@ -4,6 +4,7 @@ import {useDispatch} from "react-redux";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import { List, Avatar, Button } from 'antd';
 import {NewRefill} from "../pages/NewRefill";
+import { ModalInfo } from './Modal';
 interface RefillsProps {
 
 }
@@ -11,6 +12,7 @@ interface RefillsProps {
 export const Refills: React.FC<RefillsProps> = () => {
     const dispatch = useDispatch()
     const [visible, setVisible] = useState(true)
+
     const {refills} = useTypedSelector(state => state.technicReducer)
     useEffect(() => {
         dispatch(TechnicsActionCreators.fetchRefills())
@@ -27,6 +29,8 @@ export const Refills: React.FC<RefillsProps> = () => {
                         title={` [${item.device.cartridge}] ${item.device.name}`}
                         description={` [${item.userId}] `}
                     />
+                    <Button type="primary" onClick={showModal}>More</Button>
+                    <ModalInfo isModalVisible={isModalVisible} title={"text"}></ModalInfo>
                 </List.Item>
             )}
         />
