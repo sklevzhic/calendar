@@ -18,9 +18,9 @@ export const NewRefill: React.FC<NewRefillProps> = () => {
     useEffect(() => {
         dispatch(TechnicsActionCreators.fetchPrinters())
     }, [])
-
     function onChange(value: string) {
-        console.log(`selected ${value}`);
+        dispatch(TechnicsActionCreators.addRefill(value))
+        console.log(`Отправить на заправку ${value}`);
     }
 
     function onSearch(val: string) {

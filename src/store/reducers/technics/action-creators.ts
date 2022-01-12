@@ -100,6 +100,23 @@ export const TechnicsActionCreators = {
             console.log(e)
         }
     },
+
+    addRefill: (id: string) => async (dispatch: AppDispatch) => {
+        try {
+            let response = await technicsApi.addRefill(id)
+            debugger
+            // let printersInfo = await getMoreInfo([response])
+            // dispatch(TechnicsActionCreators.setDevice(printersInfo[0]))
+            // dispatch(TechnicsActionCreators.fetchPrinters())
+            // let events = localStorage.getItem("events") || '[]'
+            // let jsonEvents = JSON.parse(events)
+            // jsonEvents.push(data)
+            // localStorage.setItem("events", JSON.stringify(jsonEvents))
+            // dispatch(EventActionCreators.setEvents(jsonEvents))
+        } catch (e) {
+            console.log(e)
+        }
+    },
     // deleteEvent: (data: IEvent) => async (dispatch: AppDispatch) => {}
 
 }

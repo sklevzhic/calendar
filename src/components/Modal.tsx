@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import {Modal} from "antd";
 
 interface ModalProps {
-    isModalVisible: boolean,
-    title: string,
+    // isModalVisible: boolean,
+    // title: string,
 }
 
-export const ModalInfo: React.FC<ModalProps> = ({children,isModalVisible, title}) => {
+export const ModalInfo: React.FC<ModalProps> = ({children}) => {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 

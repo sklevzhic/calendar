@@ -6,12 +6,13 @@ import {useDispatch} from "react-redux";
 import {TechnicsActionCreators} from "../store/reducers/technics/action-creators";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 
-import {Card, Avatar} from 'antd';
+import {Card} from 'antd';
 import {IPrinter} from "../models/Technics";
 import {AllTechnics} from "../components/AllTechnics";
 import {Refills} from '../components/Refills';
+import {FormRefill} from "../components/FormRefill";
 
-const {Meta} = Card;
+// const {Meta} = Card;
 
 const {Option} = Select;
 
@@ -37,33 +38,36 @@ let builds = [
     {name: "5", address: "Могилевская"},
 ]
 
-let structures = [
-    {key: "umo", name: "УМО"},
-    {key: "fdpo", name: "ФДПО"},
-    {key: "fuiprp", name: "ФУиПРП"},
-    {key: "fdp", name: "ФДП"},
-    {key: "cdo", name: "ЦДО"},
-    {key: "firsted", name: "Первое образование"},
-    {key: "spkis", name: "СПКиС"},
-    {key: "sio", name: "СИО"},
-    {key: "sp", name: "СП"},
-]
+// let structures = [
+//     {key: "umo", name: "УМО"},
+//     {key: "fdpo", name: "ФДПО"},
+//     {key: "fuiprp", name: "ФУиПРП"},
+//     {key: "fdp", name: "ФДП"},
+//     {key: "cdo", name: "ЦДО"},
+//     {key: "firsted", name: "Первое образование"},
+//     {key: "spkis", name: "СПКиС"},
+//     {key: "sio", name: "СИО"},
+//     {key: "sp", name: "СП"},
+// ]
 
-let stages = {
-    1: "Пустой",
-    2: "Докладная на заправку",
-    3: "Передача в ЦРИТ",
-    4: "Получение из ЦРИТ"
-}
+// let stages = {
+//     1: "Пустой",
+//     2: "Докладная на заправку",
+//     3: "Передача в ЦРИТ",
+//     4: "Получение из ЦРИТ"
+// }
 
 export const Printers: React.FC<PrintersProps> = () => {
     const dispatch = useDispatch()
     const [isVisibleRefills, setVisibleRefills] = useState(true)
-    const {printers, users, models} = useTypedSelector(state => state.technicReducer)
+    const { users, models } = useTypedSelector(state => state.technicReducer)
 
 
     useEffect(() => {
         dispatch(TechnicsActionCreators.fetchUsers())
+    }, [])
+    useEffect(() => {
+        dispatch(TechnicsActionCreators.fetchModels())
     }, [])
 
 
@@ -92,6 +96,10 @@ export const Printers: React.FC<PrintersProps> = () => {
 
         <hr/>
         <Card style={{width: 600}}>
+            <FormRefill />
+        </Card>
+
+        <Card style={{width: 600}}>
             <Form
                 name="basic"
                 labelCol={{span: 8}}
@@ -104,12 +112,12 @@ export const Printers: React.FC<PrintersProps> = () => {
                     obj.map(el => {
 
                         if (el.key === 'print') {
-                            return <Form.Item name="print" valuePropName="checked" wrapperCol={{offset: 8, span: 16}}>
+                            return <Form.Item key={el.key} name="print" valuePropName="checked" wrapperCol={{offset: 8, span: 16}}>
                                 <Checkbox>{el.name}</Checkbox>
                             </Form.Item>
                         }
                         if (el.key === 'type') {
-                            return <Form.Item name={el.key} label="Тип">
+                            return <Form.Item key={el.key} name={el.key} label="Тип">
                                 <Select
                                     showSearch
                                     placeholder="Тип"
@@ -124,7 +132,7 @@ export const Printers: React.FC<PrintersProps> = () => {
                             </Form.Item>
                         }
                         if (el.key === 'name') {
-                            return <Form.Item name={el.key} label="Модель устройства">
+                            return <Form.Item key={el.key} name={el.key} label="Модель устройства">
                                 <Select
                                     showSearch
                                     placeholder="Модель устройства"
@@ -141,7 +149,7 @@ export const Printers: React.FC<PrintersProps> = () => {
                             </Form.Item>
                         }
                         if (el.key === 'build') {
-                            return <Form.Item name={el.key} label="Конпус">
+                            return <Form.Item key={el.key} name={el.key} label="Конпус">
                                 <Select
                                     showSearch
                                     placeholder="Корпус"
@@ -159,7 +167,7 @@ export const Printers: React.FC<PrintersProps> = () => {
                         }
 
                         if ((el.key === 'userId') || (el.key === 'matfyo')) {
-                            return <Form.Item name={el.key} label="ФИО">
+                            return <Form.Item key={el.key} name={el.key} label="ФИО">
                                 <Select
                                     showSearch
                                     placeholder="ФИО"

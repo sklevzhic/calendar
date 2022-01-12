@@ -5,15 +5,18 @@ import {useTypedSelector} from "../hooks/useTypedSelector";
 import { List, Avatar, Button } from 'antd';
 import {NewRefill} from "../pages/NewRefill";
 import { ModalInfo } from './Modal';
+import { useHistory } from 'react-router-dom';
 interface RefillsProps {
 
 }
 
 export const Refills: React.FC<RefillsProps> = () => {
     const dispatch = useDispatch()
+    let history = useHistory();
     const [visible, setVisible] = useState(true)
 
     const {refills} = useTypedSelector(state => state.technicReducer)
+
     useEffect(() => {
         dispatch(TechnicsActionCreators.fetchRefills())
     }, [])
@@ -29,8 +32,8 @@ export const Refills: React.FC<RefillsProps> = () => {
                         title={` [${item.device.cartridge}] ${item.device.name}`}
                         description={` [${item.userId}] `}
                     />
-                    <Button type="primary" onClick={showModal}>More</Button>
-                    <ModalInfo isModalVisible={isModalVisible} title={"text"}></ModalInfo>
+                    <Button onClick={() => history.push(`/printers/${item.printerId}`)} type="primary">More</Button>
+                    <ModalInfo ></ModalInfo>
                 </List.Item>
             )}
         />

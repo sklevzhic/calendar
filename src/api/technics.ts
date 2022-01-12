@@ -20,6 +20,13 @@ export const technicsApi = {
     addDevice(obj: IPrinter) {
         return axios.post(`${URL}/createDevice`, obj).then(response => response.data.obj[0])
     },
+    addRefill(id: string) {
+        let obj = {
+            printerId: id
+        }
+        return axios.post(`${URL}/addRefill`, obj).then(response => response.data.obj[0])
+    },
+
     deleteDevice(id: string | number) {
         return axios.delete(`${URL}/printers/${id}`).then(response => response.data)
     },
