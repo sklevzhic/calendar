@@ -5,6 +5,7 @@ import {Moment} from "moment";
 import {formatDate} from "../utils/date";
 import {useDispatch} from "react-redux";
 import {EventActionCreators} from "../store/reducers/events/action-creators";
+import {TechnicsActionCreators} from "../store/reducers/technics/action-creators";
 
 const {Option} = Select;
 
@@ -22,7 +23,7 @@ export const EventForm: React.FC<EventFormProps> = () => {
 
 
     const handleSubmit = () => {
-        dispatch(EventActionCreators.createEvent(event))
+        // dispatch(TechnicsActionCreators.addRefill(event))
     }
     return <>
         <Form

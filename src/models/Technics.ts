@@ -1,14 +1,22 @@
 export interface IPrinter {
     "id": string,
-    "userId": string | number,
+    "type": string | number,
     "name": string,
-    "invent": string | number,
-    "zavod": string | number,
-    "matfyo": string | number,
-    "room": string | number,
+    "invent": string,
+    "year": string | number,
     "build": string | number,
+    "room": string | number,
+    "user": string | number,
+    "matfyo": string,
+    "zavod": string,
     "print": boolean,
-    "device": IModel
+    "problem": string,
+    "faculty":string,
+    "desc":string,
+    "date":string,
+    "getdate": string,
+    "isTrusted":string,
+    "refills"?: IRefill[]
 }
 
 export interface IUser {
@@ -25,10 +33,8 @@ export interface IModel {
 }
 
 export interface IRefill {
-    device: any;
+    date: string;
     "id": string | number,
-    "userId": string | number,
-    "printerId": string | number,
-    "dateget": string,
-    "stage": 1 | 2 | 3 | 4
+    "techId": string | number,
+    "status": string,
 }

@@ -13,7 +13,8 @@ export enum TechnicsActionEnum {
     DELETE_DEVICE = 'DELETE_DEVICE',
     SET_USERS = "SET_USERS",
     SET_MODELS = "SET_MODELS",
-    SET_REFILLS = "SET_REFILLS"
+    SET_REFILLS = "SET_REFILLS",
+    SHOW_REFILLS_BY_PRINTER = "SHOW_REFILLS_BY_PRINTER",
 }
 
 
@@ -45,7 +46,10 @@ export interface SetRefillsAction {
     type: TechnicsActionEnum.SET_REFILLS,
     payload: IRefill[]
 }
-
+export interface showRefillsByPrinter {
+    type: TechnicsActionEnum.SHOW_REFILLS_BY_PRINTER,
+    payload: IRefill[]
+}
 
 
 export type EventActions =
@@ -55,3 +59,4 @@ export type EventActions =
     | SetUsersAction
     | SetModelsAction
     | SetRefillsAction
+    | showRefillsByPrinter

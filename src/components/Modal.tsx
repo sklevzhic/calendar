@@ -1,30 +1,25 @@
-import React, { useState } from 'react'
+import React, {Dispatch, SetStateAction, useState } from 'react'
 import {Modal} from "antd";
+import {IPrinter} from "../models/Technics";
 
 interface ModalProps {
-    // isModalVisible: boolean,
-    // title: string,
+    isModalVisible: boolean,
+    setIsModalVisible: Dispatch<SetStateAction<boolean>>
+    activeElement: IPrinter
 }
 
-export const ModalInfo: React.FC<ModalProps> = ({children}) => {
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
+export const ModalInfo: React.FC<ModalProps> = ({children,activeElement, isModalVisible, setIsModalVisible}) => {
 
     const handleOk = () => {
-        console.log('Ok')
-        // setIsModalVisible(false);
+        setIsModalVisible(false);
     };
 
     const handleCancel = () => {
-        console.log('handleCancel')
-        // setIsModalVisible(false);
+        setIsModalVisible(false);
     };
 
-    return <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+
+    return <Modal title={activeElement.name} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
         {children}
     </Modal>;
 };

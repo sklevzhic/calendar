@@ -5,36 +5,36 @@ import {
     SetDeviceAction,
     SetModelsAction,
     SetPrintersAction, SetRefillsAction,
-    SetUsersAction,
+    SetUsersAction, showRefillsByPrinter,
     TechnicsActionEnum
 } from "./type";
 import {technicsApi} from "../../../api/technics";
 
 
-const getMoreInfo = (array: IPrinter[]) => {
-    return Promise.all(array.map(async (item) => {
-        let obj = {
-            ...item,
-            matfyo: await technicsApi.getUserName(item.matfyo),
-            userId: await technicsApi.getUserName(item.userId),
-            device: await technicsApi.getDeviceName(item.name),
-        }
-
-        return obj
-    }))
-}
-
-const getMoreInfoRefill = (array: IRefill[]) => {
-    return Promise.all(array.map(async (item) => {
-        let obj = {
-            ...item,
-            userId: await technicsApi.getUserName(item.userId),
-            device: await technicsApi.getDeviceName(item.printerId),
-        }
-
-        return obj
-    }))
-}
+// const getMoreInfo = (array: IPrinter[]) => {
+//     return Promise.all(array.map(async (item) => {
+//         let obj = {
+//             ...item,
+//             matfyo: await technicsApi.getUserName(item.matfyo),
+//             userId: await technicsApi.getUserName(item.userId),
+//             device: await technicsApi.getDeviceName(item.name),
+//         }
+//
+//         return obj
+//     }))
+// }
+//
+// const getMoreInfoRefill = (array: IRefill[]) => {
+//     return Promise.all(array.map(async (item) => {
+//         let obj = {
+//             ...item,
+//             namebyId: await technicsApi.getUserName(item.userId),
+//             device: await technicsApi.getDeviceName(item.printerId),
+//         }
+//
+//         return obj
+//     }))
+// }
 
 export const TechnicsActionCreators = {
     setPrinters: (payload: IPrinter[]): SetPrintersAction => ({type: TechnicsActionEnum.SET_PRINTERS, payload}),
@@ -42,12 +42,13 @@ export const TechnicsActionCreators = {
     setModels: (payload: IModel[]): SetModelsAction => ({type: TechnicsActionEnum.SET_MODELS, payload}),
     setRefills: (payload: IRefill[]): SetRefillsAction => ({type: TechnicsActionEnum.SET_REFILLS, payload}),
     setDevice: (payload: IPrinter): SetDeviceAction => ({type: TechnicsActionEnum.SET_DEVICE, payload}),
+    showRefills: (payload: IRefill[]): showRefillsByPrinter => ({type: TechnicsActionEnum.SHOW_REFILLS_BY_PRINTER, payload}),
     deleteItem: (payload: string | number): DeleteDeviceAction => ({type: TechnicsActionEnum.DELETE_DEVICE, payload}),
     fetchPrinters: () => async (dispatch: AppDispatch) => {
         try {
             let printers = await technicsApi.fetchPrinters()
-            let printersInfo = await getMoreInfo(printers)
-            dispatch(TechnicsActionCreators.setPrinters(printersInfo))
+            // let printersInfo = await getMoreInfo(printers)
+            dispatch(TechnicsActionCreators.setPrinters(printers))
         } catch (e) {
             console.log(e)
         }
@@ -71,8 +72,10 @@ export const TechnicsActionCreators = {
     fetchRefills: () => async (dispatch: AppDispatch) => {
         try {
             let response = await technicsApi.fetchRefills()
-            let refillsInfo = await getMoreInfoRefill(response)
-            dispatch(TechnicsActionCreators.setRefills(refillsInfo))
+            dispatch(TechnicsActionCreators.showRefills(response))
+
+            // let refillsInfo = await getMoreInfoRefill(response)
+            dispatch(TechnicsActionCreators.setRefills(response))
         } catch (e) {
             console.log(e)
         }
@@ -80,8 +83,8 @@ export const TechnicsActionCreators = {
     addPrinter: (printer: IPrinter) => async (dispatch: AppDispatch) => {
         try {
             let response = await technicsApi.addDevice(printer)
-            let printersInfo = await getMoreInfo([response])
-            dispatch(TechnicsActionCreators.setDevice(printersInfo[0]))
+            // let printersInfo = await getMoreInfo([response])
+            dispatch(TechnicsActionCreators.setDevice(response))
             // dispatch(TechnicsActionCreators.fetchPrinters())
             // let events = localStorage.getItem("events") || '[]'
             // let jsonEvents = JSON.parse(events)
@@ -102,9 +105,9 @@ export const TechnicsActionCreators = {
     },
 
     addRefill: (id: string) => async (dispatch: AppDispatch) => {
+
         try {
             let response = await technicsApi.addRefill(id)
-            debugger
             // let printersInfo = await getMoreInfo([response])
             // dispatch(TechnicsActionCreators.setDevice(printersInfo[0]))
             // dispatch(TechnicsActionCreators.fetchPrinters())

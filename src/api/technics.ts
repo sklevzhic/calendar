@@ -22,9 +22,9 @@ export const technicsApi = {
     },
     addRefill(id: string) {
         let obj = {
-            printerId: id
+            techId: id
         }
-        return axios.post(`${URL}/addRefill`, obj).then(response => response.data.obj[0])
+        return axios.post(`${URL}/createRefill`, obj).then(response => response.data.obj[0])
     },
 
     deleteDevice(id: string | number) {

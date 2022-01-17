@@ -13,7 +13,7 @@ interface NewRefillProps {
 export const NewRefill: React.FC<NewRefillProps> = () => {
     const dispatch = useDispatch()
     const { printers } = useTypedSelector(state => state.technicReducer)
-
+    console.log(printers)
 
     useEffect(() => {
         dispatch(TechnicsActionCreators.fetchPrinters())

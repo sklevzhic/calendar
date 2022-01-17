@@ -21,6 +21,10 @@ export const TechnicReducer = (state = initialState, action: EventActions): Tech
          return { ...state, models: action.payload}
      case TechnicsActionEnum.SET_REFILLS:
          return { ...state, refills: action.payload}
+     case TechnicsActionEnum.SHOW_REFILLS_BY_PRINTER:
+         return { ...state, printers: state.printers.map(el => {
+             return {...el, refills: action.payload.filter(el1 => el1.techId === el.id)}
+             })}
      default:
          return state
  }

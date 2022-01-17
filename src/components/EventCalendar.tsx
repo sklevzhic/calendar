@@ -12,30 +12,24 @@ interface ComponentProps {
 
 export const EventCalendar: React.FC<ComponentProps> = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
-    const {events} = useTypedSelector(state => state.eventReducer)
+    const { refills } = useTypedSelector(state => state.technicReducer)
 
     const deleteEvent = (item: IEvent) => {
         console.log(item)
     }
 
     function dateCellRender(value: Moment) {
-
-        const formatedDate = formatDate(value.toDate())
-
-        const obj = events.filter(el => {
-            return el.date === formatedDate
-        })
+        const formatedDate = formatDate(value.toDate());
+        const currentDayEvents = refills.filter( ev => ev.date === formatedDate );
+        console.log(refills)
         return (
-            <div className="events">
-                {obj.map((item, i) => {
-                    return <Tag key={i} closable onClose={() => deleteEvent(item)}>
-                        {item.content}
-                    </Tag>
-                })}
+            <div>
+                {currentDayEvents.map((ev, index) =>
+                    <div key={index}>12</div>
+                )}
             </div>
         );
     }
-
     return <>
         <Calendar dateCellRender={dateCellRender}/>
         <Row justify={"center"}>
