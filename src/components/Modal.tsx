@@ -1,5 +1,5 @@
 import React, {Dispatch, SetStateAction, useState } from 'react'
-import {Modal} from "antd";
+import {Modal, Row} from "antd";
 import {IPrinter} from "../models/Technics";
 
 interface ModalProps {
@@ -20,6 +20,8 @@ export const ModalInfo: React.FC<ModalProps> = ({children,activeElement, isModal
 
 
     return <Modal title={activeElement.name} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-        {children}
+        <Row>
+            dsfsd
+        </Row>
     </Modal>;
 };
