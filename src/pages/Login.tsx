@@ -27,10 +27,7 @@ export const Login: React.FC<LoginProps> = () => {
         <Row justify="center">
             <Col span={10}>
                 <Card style={{marginTop: '20px'}}>
-                    <p>Данные для входа:
-                        логин: <CopyText description={"alexander1"}/>,
-                        пароль: <CopyText description={"1111"}/>
-                    </p>
+
                     <Form
                         onFinish={onFinish}
                     >

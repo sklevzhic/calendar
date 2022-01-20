@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react'
-import {List, message, Avatar, Skeleton, Divider, Button, Row} from "antd";
+import {List, message, Avatar, Skeleton, Divider, Button, Row, Tooltip} from "antd";
 import {IPrinter} from "../models/Technics";
 
 import {TechnicsActionCreators} from "../store/reducers/technics/action-creators";
 import {useDispatch} from "react-redux";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {ModalInfo} from "./Modal";
+import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
+
 
 interface AllTechnicsProps {
 
@@ -168,6 +170,7 @@ export const AllTechnics: React.FC<AllTechnicsProps> = () => {
         "problem": "",
         "faculty":"",
         "desc":"",
+        "cartridge": "",
         "date":"",
         "getdate": "",
         "isTrusted":"",
@@ -222,7 +225,22 @@ export const AllTechnics: React.FC<AllTechnicsProps> = () => {
                                                                 {
                                                                     (printer.refills) && <>
                                                                     {
-                                                                        printer.refills.length !== 0 && <p>Заправок = {printer.refills.length}</p>
+                                                                        printer.refills.length !== 0 &&
+                                                                        <Avatar.Group maxCount={2} maxStyle={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>
+                                                                            {
+                                                                                printer.refills.map(el => {
+                                                                                            return <Tooltip title={el.date} placement="top">
+                                                                                                <Avatar style={{ backgroundColor: '#87d068' }}>{ el.date }</Avatar>
+                                                                                                </Tooltip>
+                                                                                        })
+                                                                            }
+
+
+                                                                        </Avatar.Group>
+
+                                                                    //     <>
+                                                                    //     Заправок =
+                                                                    //     </>
                                                                     }
                                                                     </>
                                                                 }

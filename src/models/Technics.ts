@@ -16,6 +16,7 @@ export interface IPrinter {
     "date":string,
     "getdate": string,
     "isTrusted":string,
+    "cartridge": string
     "refills"?: IRefill[]
 }
 
