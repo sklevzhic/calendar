@@ -1,10 +1,12 @@
 import {Button, DatePicker, Form, Input, Select} from 'antd';
-import React, {useState} from 'react'
-import {IEvent} from "../models/Event";
+import React, {useEffect, useState} from 'react'
 import {Moment} from "moment";
 import {formatDate} from "../utils/date";
 import {useDispatch} from "react-redux";
-import {EventActionCreators} from "../store/reducers/events/action-creators";
+
+import {useTypedSelector} from "../hooks/useTypedSelector";
+import {TechnicsActionCreators} from "../store/reducers/technics/action-creators";
+import {IRefill} from "../models/Technics";
 
 const {Option} = Select;
 
@@ -14,26 +16,29 @@ interface FormRefillProps {
 
 export const FormRefill: React.FC<FormRefillProps> = () => {
     const dispatch = useDispatch()
-    const [event, setEvent] = useState<IEvent>({
+
+    useEffect(() => {
+        dispatch(TechnicsActionCreators.fetchPrinters())
+    }, [])
+
+    const [event, setEvent] = useState<IRefill>({
         date: '',
-        content: '',
-        guest: ''
+        techId: ''
     })
+    const { printers } = useTypedSelector(state => state.technicReducer)
+
 
 
     const handleSubmit = () => {
-        dispatch(EventActionCreators.createEvent(event))
+        console.log(event)
+           dispatch(TechnicsActionCreators.addRefill(event))
     }
+
     return <>
         <Form
             onFinish={handleSubmit}
         >
-            <Form.Item label="Событие" name="event">
-                <Input
-                    value={event.content}
-                    onChange={(e) => setEvent({...event, content: e.target.value})}/>
-            </Form.Item>
-            <Form.Item label="Событие" name="date">
+            <Form.Item label="Дата" name="date">
                 <DatePicker onChange={(date: Moment | null) => {
                     if (date) {
                         setEvent({...event, date: formatDate(date.toDate())})
@@ -41,20 +46,26 @@ export const FormRefill: React.FC<FormRefillProps> = () => {
                 }
                 }/>
             </Form.Item>
-            <Form.Item label="Событие" name="guests">
+            <Form.Item label="Устройства" name="guests">
                 <Select
-                    onChange={(guest: string) => setEvent({...event, guest})}
+                    onChange={(techId: string) => setEvent({...event, techId})}
                     style={{width: 200}}
-                    placeholder="Выбрать гостей"
+                    placeholder="Выбрать принтер для заправки"
                     optionFilterProp="children"
                 >
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="tom">Tom</Option>
+                    {
+                        printers.map(el => {
+                            return <Option value={el.id}>{el.user}</Option>
+                        })
+                    }
                 </Select>
             </Form.Item>
             <Form.Item style={{textAlign: "center"}}>
-                <Button type="primary" htmlType="submit">Primary Button</Button>
+                <Button type="primary" target={"_blank"} href={"https://docs.google.com/forms/d/e/1FAIpQLSfwyQfBoHyUEOBPXQfIfcq4CTGpxdW3SxuR842KNBWhLMqo_w/viewform"}>Открыть форму ЦРИТ</Button>
+            </Form.Item>
+
+            <Form.Item style={{textAlign: "center"}}>
+                <Button type="primary" htmlType="submit">Форма отправлена</Button>
             </Form.Item>
         </Form>
     </>;

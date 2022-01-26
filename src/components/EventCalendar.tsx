@@ -4,7 +4,8 @@ import {EventForm} from "./EnentForm";
 import {Moment} from "moment";
 import {formatDate} from "../utils/date";
 import {useTypedSelector} from "../hooks/useTypedSelector";
-import {IEvent} from "../models/Event";
+
+import {FormRefill} from "./FormRefill";
 
 interface ComponentProps {
 
@@ -14,19 +15,18 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const { refills } = useTypedSelector(state => state.technicReducer)
 
-    const deleteEvent = (item: IEvent) => {
-        console.log(item)
-    }
+    // const deleteEvent = (item: IEvent) => {
+    //     console.log(item)
+    // }
 
     function dateCellRender(value: Moment) {
         const formatedDate = formatDate(value.toDate());
         const currentDayEvents = refills.filter( ev => ev.date === formatedDate );
-
         return (
             <div>
                 {
                     currentDayEvents.map((ev, index) => {
-                        return <Badge status={"warning"} text={ev.techId} />
+                        return <Badge status={"warning"} text={ev.device.user} />
                     }
                 )}
 
@@ -34,20 +34,19 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
         );
     }
 
-    function getMonthData(value: any) {
-        if (value.month() === 6) {
-            return 1394;
-        }
-    }
-
     function monthCellRender(value: any) {
-        const num = getMonthData(value);
-        return num ? (
-            <div className="notes-month">
-                <section>{num}</section>
-                <span>Backlog number</span>
-            </div>
-        ) : null;
+        const currentDayEvents = refills.filter( el => {
+            let date = new Date(el.date)
+            let dateMoment = `${date.getMonth()}/${date.getFullYear()}`
+            let dateRefill = `${value.month()}/${value.year()}`
+            return dateMoment === dateRefill
+        } );
+        return <>                {
+            currentDayEvents.map((ev, index) => {
+                    return <Badge status={"warning"} text={ev.device.user} />
+                }
+            )}
+        </>
     }
 
     return <>
@@ -62,7 +61,7 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
             footer={null}
             onCancel={() => setIsModalVisible(false)}
         >
-            <EventForm/>
+            <FormRefill/>
         </Modal>
     </>;
 };

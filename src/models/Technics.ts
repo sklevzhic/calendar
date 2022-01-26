@@ -34,8 +34,9 @@ export interface IModel {
 }
 
 export interface IRefill {
-    date: string;
+    "date": string;
     "id": string | number,
     "techId": string | number,
     "status": string,
+    "device": IPrinter
 }

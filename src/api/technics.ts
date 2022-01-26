@@ -11,8 +11,8 @@ export const technicsApi = {
     fetchPrinters() {
         return axios.get<IPrinter[]>(`${URL}/printers`).then(response => response.data)
     },
-        getUserName(id: string | number) {
-        return axios.get(`${URL}/users/${id}`).then(response => response.data.user[0].name)
+    getDeviceInfo(id: string | number) {
+        return axios.get(`${URL}/printers/${id}`).then(response => response.data.device[0])
     },
     getDeviceName(id: string | number) {
         return axios.get(`${URL}/models/${id}`).then(response => response.data)
@@ -20,10 +20,8 @@ export const technicsApi = {
     addDevice(obj: IPrinter) {
         return axios.post(`${URL}/createDevice`, obj).then(response => response.data.obj[0])
     },
-    addRefill(id: string) {
-        let obj = {
-            techId: id
-        }
+    addRefill(obj: IRefill) {
+
         return axios.post(`${URL}/createRefill`, obj).then(response => response.data.obj[0])
     },
 

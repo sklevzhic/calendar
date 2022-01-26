@@ -24,17 +24,16 @@ import {technicsApi} from "../../../api/technics";
 //     }))
 // }
 //
-// const getMoreInfoRefill = (array: IRefill[]) => {
-//     return Promise.all(array.map(async (item) => {
-//         let obj = {
-//             ...item,
-//             namebyId: await technicsApi.getUserName(item.userId),
-//             device: await technicsApi.getDeviceName(item.printerId),
-//         }
-//
-//         return obj
-//     }))
-// }
+const getMoreInfoRefill = (array: IRefill[]) => {
+    return Promise.all(array.map(async (item) => {
+        let obj = {
+            ...item,
+            device: await technicsApi.getDeviceInfo(item.techId),
+        }
+
+        return obj
+    }))
+}
 
 export const TechnicsActionCreators = {
     setPrinters: (payload: IPrinter[]): SetPrintersAction => ({type: TechnicsActionEnum.SET_PRINTERS, payload}),
@@ -74,8 +73,9 @@ export const TechnicsActionCreators = {
             let response = await technicsApi.fetchRefills()
             dispatch(TechnicsActionCreators.showRefills(response))
 
-            // let refillsInfo = await getMoreInfoRefill(response)
-            dispatch(TechnicsActionCreators.setRefills(response))
+            let refillsInfo = await getMoreInfoRefill(response)
+            console.log(refillsInfo)
+            dispatch(TechnicsActionCreators.setRefills(refillsInfo))
         } catch (e) {
             console.log(e)
         }
@@ -104,10 +104,9 @@ export const TechnicsActionCreators = {
         }
     },
 
-    addRefill: (id: string) => async (dispatch: AppDispatch) => {
-
+    addRefill: (obj: IRefill) => async (dispatch: AppDispatch) => {
         try {
-            let response = await technicsApi.addRefill(id)
+            let response = await technicsApi.addRefill(obj)
             // let printersInfo = await getMoreInfo([response])
             // dispatch(TechnicsActionCreators.setDevice(printersInfo[0]))
             // dispatch(TechnicsActionCreators.fetchPrinters())
