@@ -24,11 +24,11 @@ import {technicsApi} from "../../../api/technics";
 //     }))
 // }
 //
-const getMoreInfoRefill = (array: IRefill[]) => {
+const getMoreInfoRefill = (array: IRefill[], printers: IPrinter[]) => {
     return Promise.all(array.map(async (item) => {
         let obj = {
             ...item,
-            device: await technicsApi.getDeviceInfo(item.techId),
+            device: printers.filter(el => el.id === item.techId)[0]
         }
 
         return obj
@@ -71,10 +71,11 @@ export const TechnicsActionCreators = {
     fetchRefills: () => async (dispatch: AppDispatch) => {
         try {
             let response = await technicsApi.fetchRefills()
+            let printers = await technicsApi.fetchPrinters()
+
             dispatch(TechnicsActionCreators.showRefills(response))
 
-            let refillsInfo = await getMoreInfoRefill(response)
-            console.log(refillsInfo)
+            let refillsInfo = await getMoreInfoRefill(response, printers)
             dispatch(TechnicsActionCreators.setRefills(refillsInfo))
         } catch (e) {
             console.log(e)

@@ -6,7 +6,8 @@ import {useDispatch} from "react-redux";
 
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {TechnicsActionCreators} from "../store/reducers/technics/action-creators";
-import {IRefill} from "../models/Technics";
+import {IPrinter, IRefill} from "../models/Technics";
+import {TechnicInfo} from "./TechnicInfo";
 
 const {Option} = Select;
 
@@ -22,16 +23,17 @@ export const FormRefill: React.FC<FormRefillProps> = () => {
     }, [])
 
     const [event, setEvent] = useState<IRefill>({
-        date: '',
-        techId: ''
+        "date": "",
+        "id": "",
+        "techId": "",
+        "status": "",
     })
     const { printers } = useTypedSelector(state => state.technicReducer)
 
 
 
     const handleSubmit = () => {
-        console.log(event)
-           dispatch(TechnicsActionCreators.addRefill(event))
+        dispatch(TechnicsActionCreators.addRefill(event))
     }
 
     return <>
@@ -55,11 +57,26 @@ export const FormRefill: React.FC<FormRefillProps> = () => {
                 >
                     {
                         printers.map(el => {
-                            return <Option value={el.id}>{el.user}</Option>
+                            return <Option value={el.id}>{el.cartridge} {el.user} {el.room}</Option>
                         })
                     }
                 </Select>
             </Form.Item>
+
+            <Form.Item label="Устройства" name="status">
+                <Select
+                    onChange={(status: string) => setEvent({...event, status})}
+                    style={{width: 200}}
+                    placeholder="Статус"
+                    optionFilterProp="children"
+                >
+                    <Option value={"Выдан новый"}>Выдан новый</Option>
+                    <Option value={"На заправке"}>На заправке</Option>
+                    <Option value={"Заправлен"}>Заправлен</Option>
+                </Select>
+            </Form.Item>
+        {/* <TechnicInfo activeElement={}/>*/}
+
             <Form.Item style={{textAlign: "center"}}>
                 <Button type="primary" target={"_blank"} href={"https://docs.google.com/forms/d/e/1FAIpQLSfwyQfBoHyUEOBPXQfIfcq4CTGpxdW3SxuR842KNBWhLMqo_w/viewform"}>Открыть форму ЦРИТ</Button>
             </Form.Item>

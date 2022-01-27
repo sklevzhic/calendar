@@ -21,7 +21,6 @@ export const technicsApi = {
         return axios.post(`${URL}/createDevice`, obj).then(response => response.data.obj[0])
     },
     addRefill(obj: IRefill) {
-
         return axios.post(`${URL}/createRefill`, obj).then(response => response.data.obj[0])
     },
 

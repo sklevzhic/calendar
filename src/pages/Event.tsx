@@ -2,7 +2,6 @@ import { Content } from 'antd/lib/layout/layout';
 import React, {useEffect} from 'react'
 import {EventCalendar} from "../components/EventCalendar";
 import {useDispatch} from "react-redux";
-import {EventActionCreators} from "../store/reducers/events/action-creators";
 import {TechnicsActionCreators} from "../store/reducers/technics/action-creators";
 import { useTypedSelector } from '../hooks/useTypedSelector';
 

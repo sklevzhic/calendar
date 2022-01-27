@@ -13,13 +13,12 @@ interface NewRefillProps {
 export const NewRefill: React.FC<NewRefillProps> = () => {
     const dispatch = useDispatch()
     const { printers } = useTypedSelector(state => state.technicReducer)
-    console.log(printers)
 
     useEffect(() => {
         dispatch(TechnicsActionCreators.fetchPrinters())
     }, [])
     function onChange(value: string) {
-        dispatch(TechnicsActionCreators.addRefill(value))
+        // dispatch(TechnicsActionCreators.addRefill(value))
         console.log(`Отправить на заправку ${value}`);
     }
 

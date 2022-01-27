@@ -1,6 +1,5 @@
 import {Badge, Button, Calendar, Modal, Row, Tag} from 'antd';
 import React, {useState} from 'react'
-import {EventForm} from "./EnentForm";
 import {Moment} from "moment";
 import {formatDate} from "../utils/date";
 import {useTypedSelector} from "../hooks/useTypedSelector";
@@ -14,10 +13,8 @@ interface ComponentProps {
 export const EventCalendar: React.FC<ComponentProps> = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const { refills } = useTypedSelector(state => state.technicReducer)
+    console.log(refills)
 
-    // const deleteEvent = (item: IEvent) => {
-    //     console.log(item)
-    // }
 
     function dateCellRender(value: Moment) {
         const formatedDate = formatDate(value.toDate());
@@ -26,7 +23,9 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
             <div>
                 {
                     currentDayEvents.map((ev, index) => {
-                        return <Badge status={"warning"} text={ev.device.user} />
+                        if (ev.device) {
+                            return <Badge status={"warning"} text={ev.device.user} />
+                        }
                     }
                 )}
 
@@ -39,11 +38,16 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
             let date = new Date(el.date)
             let dateMoment = `${date.getMonth()}/${date.getFullYear()}`
             let dateRefill = `${value.month()}/${value.year()}`
+
             return dateMoment === dateRefill
         } );
+        debugger
         return <>                {
+
             currentDayEvents.map((ev, index) => {
-                    return <Badge status={"warning"} text={ev.device.user} />
+                    if (ev.device) {
+                        return <Badge status={"warning"} text={ev.device.user} />
+                    }
                 }
             )}
         </>

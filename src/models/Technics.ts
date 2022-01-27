@@ -38,5 +38,5 @@ export interface IRefill {
     "id": string | number,
     "techId": string | number,
     "status": string,
-    "device": IPrinter
+    "device"?: IPrinter
 }
