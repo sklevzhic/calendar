@@ -1,8 +1,5 @@
 import axios from "axios";
-import {IModel, IPrinter, IRefill, IUser} from "../models/Technics";
-import instanceAuth from "./api";
-import {IGuest} from "../models/Event";
-import instance from "./api";
+import {IModel, IPrinter, IRefill} from "../models/Technics";
 
 let URL = 'https://printersipkip.herokuapp.com'
 // let URL = `http://localhost:1337`
@@ -37,9 +34,3 @@ export const technicsApi = {
         return axios.get<IRefill[]>(`${URL}/refills`).then(response => response.data)
     },
 }
-
-// export const technicsApi = {
-
-
-
-// }

@@ -1,10 +1,6 @@
-import React, {Dispatch, SetStateAction, useState} from 'react'
-import {Button, Modal, Row} from "antd";
+import React, {Dispatch, SetStateAction} from 'react'
+import { Modal } from "antd";
 import {IPrinter} from "../models/Technics";
-
-import {Typography, Space} from 'antd';
-import {CopyText} from "./CopyText";
-import Link from 'antd/lib/typography/Link';
 
 interface ModalProps {
     isModalVisible: boolean,

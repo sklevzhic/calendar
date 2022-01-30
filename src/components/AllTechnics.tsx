@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react'
-import {List, message, Avatar, Skeleton, Divider, Button, Row, Tooltip} from "antd";
+import {List, Avatar, Button, Row, Tooltip, Space, Typography} from "antd";
 import {IPrinter} from "../models/Technics";
 
 import {TechnicsActionCreators} from "../store/reducers/technics/action-creators";
 import {useDispatch} from "react-redux";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {ModalInfo} from "./Modal";
-import { UserOutlined, AntDesignOutlined } from '@ant-design/icons';
+import Link from 'antd/lib/typography/Link';
+import { CopyText } from './CopyText';
 
+const { Text } = Typography;
 
 interface AllTechnicsProps {
 
@@ -178,12 +180,12 @@ export const AllTechnics: React.FC<AllTechnicsProps> = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     useEffect(() => {
-        console.log(printers)
-    }, [printers])
+        console.log(activeElement)
+    }, [activeElement])
 
-    const deleteDevice = (id: string | number) => {
-        dispatch(TechnicsActionCreators.deleteDevice(id))
-    }
+    // const deleteDevice = (id: string | number) => {
+    //     dispatch(TechnicsActionCreators.deleteDevice(id))
+    // }
 
     const handleActiveElement = (printer: IPrinter) => {
         setActiveElement(printer)
@@ -194,23 +196,51 @@ export const AllTechnics: React.FC<AllTechnicsProps> = () => {
     return <List>
             <>
                 {
-                    activeElement && <ModalInfo activeElement={activeElement} isModalVisible={isModalVisible} setIsModalVisible={setIsModalVisible}/>
+                    activeElement && <ModalInfo
+                        activeElement={activeElement}
+                        isModalVisible={isModalVisible}
+                        setIsModalVisible={setIsModalVisible}
+
+                    ><Row>
+                        <Text>
+                            Для заправки необходимо заполнить                 <Link target={"_blank"} href={"https://docs.google.com/forms/d/e/1FAIpQLSfwyQfBoHyUEOBPXQfIfcq4CTGpxdW3SxuR842KNBWhLMqo_w/viewform"}>
+                            форму
+                        </Link>
+                        </Text>
+                        <Space direction="vertical">
+
+                            <Text>ФИО ответственного лица: <br/> <CopyText description={"Клевжиц Александр Юрьевич"}/> <CopyText description={"Маковчик Андрей Александрович"}/></Text>
+                            <Text>Адрес электронной почты: <CopyText description={"ipk@bspu.by"}/></Text>
+                            <hr/>
+                            <Text>Структурное подразделение факультета: <CopyText description={activeElement.faculty}/></Text>
+                            <hr/>
+                            <Text>Номер кабинета: <CopyText description={`${activeElement.room}-${activeElement.build}`}/></Text>
+                            <Text>Вид оргтехники: <CopyText description={activeElement.type}/></Text>
+                            <Text>Год выпуска: <CopyText description={activeElement.year}/></Text>
+                            <Text>Инвентарный номер оргтехники: <CopyText description={activeElement.invent}/></Text>
+                            { activeElement.cartridge && <>
+                                <Text>Номер картриджа: <CopyText description={activeElement.cartridge === "057A" ? "-" : activeElement.cartridge}/></Text>
+                                <Text>Модель оргтехники и номер картриджа: <CopyText description={`${activeElement.name} (${activeElement.cartridge})`}/></Text>
+
+                            </>}
+                        </Space>
+                    </Row></ModalInfo>
                 }
             </>
         <Row><Button onClick={() => dispatch(TechnicsActionCreators.fetchRefills())}>Показать все заправки</Button></Row>
         {
             schema.map(build => {
                 if (printers.some(el => el.build === build.build)) {
-                    return <>
+                    return <div key={build.build}>
                         <h2>{build.address}</h2>
                         {
                             build.blocks.map(block => {
-                                return <>
+                                return <div key={block.name}>
                                     <h3>{block.name}</h3>
                                     {
                                         block.rooms.map(room => {
                                             if (printers.some(el => el.room === room)) {
-                                                return  <div>
+                                                return  <div key={room}>
                                                     <h5>{room}</h5>
                                                     {
                                                         printers.filter(el => el.id).map(printer => {
@@ -218,7 +248,6 @@ export const AllTechnics: React.FC<AllTechnicsProps> = () => {
                                                             return <List.Item key={printer.id}>
                                                                 <List.Item.Meta
                                                                     avatar={<Avatar/>}
-                                                                    // avatar={<Avatar src={item.picture.large} />}
                                                                     title={<>{`[${printer.type}] ${printer.name}`} { (printer.invent) ? printer.invent : <Button type="dashed" >Заполнить</Button> }</>}
                                                                     description={` ${printer.user}` }
                                                                 />
@@ -237,15 +266,10 @@ export const AllTechnics: React.FC<AllTechnicsProps> = () => {
 
 
                                                                         </Avatar.Group>
-
-                                                                    //     <>
-                                                                    //     Заправок =
-                                                                    //     </>
                                                                     }
                                                                     </>
                                                                 }
                                                                 <Button onClick={(e) => handleActiveElement(printer)}>Заправка</Button>
-                                                                {/*<Button onClick={(e) => handleLastRefilling(printer)}>Last</Button>*/}
                                                             </List.Item>
                                                         })
                                                     }
@@ -253,11 +277,11 @@ export const AllTechnics: React.FC<AllTechnicsProps> = () => {
                                             }
                                         })
                                     }
-                                </>
+                                </div>
 
                             })
                         }
-                    </>
+                    </div>
                 }
 
             })

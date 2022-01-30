@@ -5,7 +5,6 @@ import {IUser} from "../models/Auth";
 import {useDispatch} from "react-redux";
 import {AuthActionCreators} from "../store/reducers/auth/action-creators";
 import {useTypedSelector} from "../hooks/useTypedSelector";
-import {CopyText} from "../components/CopyText";
 
 
 interface LoginProps {

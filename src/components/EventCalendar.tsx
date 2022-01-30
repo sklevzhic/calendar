@@ -24,7 +24,7 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
                 {
                     currentDayEvents.map((ev, index) => {
                         if (ev.device) {
-                            return <Badge status={"warning"} text={ev.device.user} />
+                            return <Badge  key={ev.id} status={"warning"} text={ev.device.user} />
                         }
                     }
                 )}
@@ -41,12 +41,11 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
 
             return dateMoment === dateRefill
         } );
-        debugger
         return <>                {
 
-            currentDayEvents.map((ev, index) => {
+            currentDayEvents.map((ev) => {
                     if (ev.device) {
-                        return <Badge status={"warning"} text={ev.device.user} />
+                        return <Badge key={ev.id} status={"warning"} text={ev.device.user} />
                     }
                 }
             )}
