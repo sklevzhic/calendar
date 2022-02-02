@@ -43,7 +43,7 @@ export const NavBar: React.FC<HeaderProps> = () => {
                             <Menu.Item onClick={() => history.push("/")} key="main">Главная</Menu.Item>
                             <Menu.Item onClick={() => history.push("/events")} key="calendar">Календарь</Menu.Item>
                             <Menu.Item onClick={() => history.push("/profile")} key="profile">Профиль</Menu.Item>
-                            <Menu.Item onClick={() => history.push("/printers")} key="printers">printers</Menu.Item>
+                            <Menu.Item onClick={() => history.push("/technics")} key="printers">printers</Menu.Item>
                         </Menu>
                     </Col>
                     <Col span={4}>

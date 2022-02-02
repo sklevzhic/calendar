@@ -8,8 +8,8 @@ export const privateRoutes = [
     {path: "/", component: Event, exact: true},
     {path: "/profile", component: Profile, exact: false},
     {path: "/events", component: Event, exact: false},
-    {path: "/printers", component: Printers, exact: true},
-    {path: "/printers/:id", component: Printer, exact: false},
+    {path: "/technics", component: Printers, exact: true},
+    {path: "/technics/:id", component: Printer, exact: false},
 ]
 
 export const publicRoutes = [

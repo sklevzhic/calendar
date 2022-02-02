@@ -6,9 +6,9 @@ import {useTypedSelector} from "../hooks/useTypedSelector";
 
 import {FormRefill} from "./FormRefill";
 import {colors} from '../consts/status';
-import {Select, Radio, Col, Typography} from 'antd';
+import {Select, Radio, Col} from 'antd';
 import {IRefill} from "../models/Technics";
-
+const { Option } = Select;
 interface ComponentProps {
 
 }
@@ -17,18 +17,19 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
     const [isModalVisible, setIsModalVisible] = useState(false)
     const {refills, printers} = useTypedSelector(state => state.technicReducer)
     const [filterRefills, setFilterRefills] = useState<IRefill[] | []>([])
-    const [activePrinters, setActivePrinters] = useState<string[]>([])
+    const [activePrinters, setActivePrinters] = useState<string>('')
 
     useEffect(() => {
         setFilterRefills(refills)
     }, [refills])
 
     useEffect(() => {
-        setFilterRefills(filterRefills.filter(el => el.techId === '3'))
+        setFilterRefills(refills.filter(el => el.techId === activePrinters))
     }, [activePrinters])
 
     function onChangeActivePrinter(value: string) {
-        setActivePrinters([...activePrinters, value])
+        // setActivePrinters([...activePrinters, value])
+        setActivePrinters(value)
     }
 
     function dateCellRender(value: Moment) {
@@ -37,7 +38,7 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
         return (
             <div>
                 {
-                    currentDayEvents.map((ev, index) => {
+                    currentDayEvents.map((ev) => {
                             if (ev.device) {
                                 return <Badge key={ev.id} status={"warning"} text={ev.device.user}/>
                             }
@@ -47,7 +48,6 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
             </div>
         );
     }
-
     function monthCellRender(value: any) {
         const currentDayEvents = filterRefills.filter(el => {
             let date = new Date(el.date)
@@ -84,7 +84,7 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
 
                 for (let index = start; index < end; index++) {
                     monthOptions.push(
-                        <Select.Option className="month-item" key={`${index}`}>
+                        <Select.Option className="month-item" key={`${index}`} value={index}>
                             {months[index]}
                         </Select.Option>,
                     );
@@ -163,9 +163,9 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
                     </div>
                 );
             }}
+            dateCellRender={dateCellRender} monthCellRender={monthCellRender}
+        />
 
-
-            dateCellRender={dateCellRender} monthCellRender={monthCellRender}/>
         <Row justify={"center"}>
             <Button type={"primary"} onClick={() => setIsModalVisible(true)}>Добавить событие</Button>
         </Row>

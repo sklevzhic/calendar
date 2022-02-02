@@ -9,6 +9,7 @@ import {ModalInfo} from "./Modal";
 import Link from 'antd/lib/typography/Link';
 import { CopyText } from './CopyText';
 
+
 const { Text } = Typography;
 
 interface AllTechnicsProps {
@@ -247,7 +248,7 @@ export const AllTechnics: React.FC<AllTechnicsProps> = () => {
                                                             if (printer.room === room)
                                                             return <List.Item key={printer.id}>
                                                                 <List.Item.Meta
-                                                                    avatar={<Avatar/>}
+                                                                    avatar={<Avatar src={"/assets/img/technics/Samsung SCX-4200.jpg"}/>}
                                                                     title={<>{`[${printer.type}] ${printer.name}`} { (printer.invent) ? printer.invent : <Button type="dashed" >Заполнить</Button> }</>}
                                                                     description={` ${printer.user}` }
                                                                 />

@@ -46,7 +46,7 @@ export const TechnicsActionCreators = {
     fetchPrinters: () => async (dispatch: AppDispatch) => {
         try {
             let printers = await technicsApi.fetchPrinters()
-            // let printersInfo = await getMoreInfo(printers)
+            // let printersInfo = await getMoreInfo(technics)
             dispatch(TechnicsActionCreators.setPrinters(printers))
         } catch (e) {
             console.log(e)
