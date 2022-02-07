@@ -10,25 +10,6 @@ interface PrintersProps {
 
 }
 
-// let obj = [
-//     {key: "userId", name: "ФИО"},
-//     {key: "name", name: "Наименование"},
-//     {key: "invent", name: "Интвентарный номер"},
-//     {key: "zavod", name: "Заводской номер"},
-//     {key: "matfyo", name: "МОЛ"},
-//     {key: "build", name: "Корпус"},
-//     {key: "room", name: "Кабинет"},
-//     {key: "print", name: "Наклейка"},
-// ]
-//
-// let builds = [
-//     {name: "1", address: "Советская"},
-//     {name: "9", address: "Голубева"},
-//     {name: "5", address: "Могилевская"},
-// ]
-
-
-
 export const Printers: React.FC<PrintersProps> = () => {
     const dispatch = useDispatch()
     const [isVisibleRefills, setVisibleRefills] = useState(true)

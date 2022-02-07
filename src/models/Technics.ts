@@ -30,7 +30,8 @@ export interface IModel {
     "type": string,
     "name": string,
     "year": string | number,
-    "cartridge"?: string
+    "cartridge"?: string,
+    "invent": string | number,
 }
 
 export interface IRefill {

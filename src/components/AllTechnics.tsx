@@ -8,6 +8,7 @@ import {useTypedSelector} from "../hooks/useTypedSelector";
 import {ModalInfo} from "./Modal";
 import Link from 'antd/lib/typography/Link';
 import { CopyText } from './CopyText';
+import { NavLink } from 'react-router-dom';
 
 
 const { Text } = Typography;
@@ -248,8 +249,8 @@ export const AllTechnics: React.FC<AllTechnicsProps> = () => {
                                                             if (printer.room === room)
                                                             return <List.Item key={printer.id}>
                                                                 <List.Item.Meta
-                                                                    avatar={<Avatar src={"/assets/img/technics/Samsung SCX-4200.jpg"}/>}
-                                                                    title={<>{`[${printer.type}] ${printer.name}`} { (printer.invent) ? printer.invent : <Button type="dashed" >Заполнить</Button> }</>}
+                                                                    avatar={<Avatar src={`https://raw.githubusercontent.com/sklevzhic/calendar/main/src/assets/img/technics/${printer.name}.jpg`}/>}
+                                                                    title={<NavLink to={`/technics/${printer.id}`} href={"#"}>{`[${printer.type}] ${printer.name}`}</NavLink>}
                                                                     description={` ${printer.user}` }
                                                                 />
                                                                 {

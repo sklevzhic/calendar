@@ -1,10 +1,13 @@
 import {EventActions, TechnicsActionEnum, TechnicsState} from "./type";
+import {IModel} from "../../../models/Technics";
 
 const initialState: TechnicsState = {
     printers: [],
     users: [],
     models: [],
-    refills: []
+    refills: [],
+    modelInfo: {} as IModel,
+    isFetchingModelInfo: false
 }
 
 export const TechnicReducer = (state = initialState, action: EventActions): TechnicsState => {
@@ -24,7 +27,9 @@ export const TechnicReducer = (state = initialState, action: EventActions): Tech
      case TechnicsActionEnum.SHOW_REFILLS_BY_PRINTER:
          return { ...state, printers: state.printers.map(el => {
              return {...el, refills: action.payload.filter(el1 => el1.techId === el.id)}
-             })}
+             }) }
+     case TechnicsActionEnum.SET_MODEL_INFO:
+         return { ...state, modelInfo: action.payload, isFetchingModelInfo: false}
      default:
          return state
  }

@@ -3,6 +3,8 @@ import {IModel, IPrinter, IRefill, IUser} from "../../../models/Technics";
 import {
     DeleteDeviceAction,
     SetDeviceAction,
+    SetFetchingModelInfoAction,
+    SetModelInfoAction,
     SetModelsAction,
     SetPrintersAction, SetRefillsAction,
     SetUsersAction, showRefillsByPrinter,
@@ -11,19 +13,6 @@ import {
 import {technicsApi} from "../../../api/technics";
 
 
-// const getMoreInfo = (array: IPrinter[]) => {
-//     return Promise.all(array.map(async (item) => {
-//         let obj = {
-//             ...item,
-//             matfyo: await technicsApi.getUserName(item.matfyo),
-//             userId: await technicsApi.getUserName(item.userId),
-//             device: await technicsApi.getDeviceName(item.name),
-//         }
-//
-//         return obj
-//     }))
-// }
-//
 const getMoreInfoRefill = (array: IRefill[], printers: IPrinter[]) => {
     return Promise.all(array.map(async (item) => {
         let obj = {
@@ -39,6 +28,8 @@ export const TechnicsActionCreators = {
     setPrinters: (payload: IPrinter[]): SetPrintersAction => ({type: TechnicsActionEnum.SET_PRINTERS, payload}),
     setUsers: (payload: IUser[]): SetUsersAction => ({type: TechnicsActionEnum.SET_USERS, payload}),
     setModels: (payload: IModel[]): SetModelsAction => ({type: TechnicsActionEnum.SET_MODELS, payload}),
+    setModelInfo: (payload: IModel): SetModelInfoAction => ({type: TechnicsActionEnum.SET_MODEL_INFO, payload}),
+    setisFetchingModelInfo: (payload: boolean): SetFetchingModelInfoAction => ({type: TechnicsActionEnum.SET_FETCHING_MODEL_INFO, payload}),
     setRefills: (payload: IRefill[]): SetRefillsAction => ({type: TechnicsActionEnum.SET_REFILLS, payload}),
     setDevice: (payload: IPrinter): SetDeviceAction => ({type: TechnicsActionEnum.SET_DEVICE, payload}),
     showRefills: (payload: IRefill[]): showRefillsByPrinter => ({type: TechnicsActionEnum.SHOW_REFILLS_BY_PRINTER, payload}),
@@ -64,6 +55,16 @@ export const TechnicsActionCreators = {
         try {
             let response = await technicsApi.fetchModels()
             dispatch(TechnicsActionCreators.setModels(response))
+        } catch (e) {
+            console.log(e)
+        }
+    },
+    fetchModelInfo: (id: string) => async (dispatch: AppDispatch) => {
+        try {
+            dispatch(TechnicsActionCreators.setisFetchingModelInfo(true))
+            let response = await technicsApi.getDeviceInfo(id)
+
+            dispatch(TechnicsActionCreators.setModelInfo(response))
         } catch (e) {
             console.log(e)
         }

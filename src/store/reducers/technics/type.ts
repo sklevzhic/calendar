@@ -4,7 +4,9 @@ export interface TechnicsState {
     printers: IPrinter[],
     users: IUser[],
     models: IModel[],
-    refills: IRefill[]
+    refills: IRefill[],
+    modelInfo: IModel,
+    isFetchingModelInfo: boolean
 }
 
 export enum TechnicsActionEnum {
@@ -15,8 +17,9 @@ export enum TechnicsActionEnum {
     SET_MODELS = "SET_MODELS",
     SET_REFILLS = "SET_REFILLS",
     SHOW_REFILLS_BY_PRINTER = "SHOW_REFILLS_BY_PRINTER",
+    SET_MODEL_INFO = "SET_MODEL_INFO",
+    SET_FETCHING_MODEL_INFO = 'SET_FETCHING_MODEL_INFO'
 }
-
 
 export interface SetPrintersAction {
     type: TechnicsActionEnum.SET_PRINTERS,
@@ -42,10 +45,22 @@ export interface SetModelsAction {
     type: TechnicsActionEnum.SET_MODELS,
     payload: IModel[]
 }
+
+export interface SetModelInfoAction {
+    type: TechnicsActionEnum.SET_MODEL_INFO,
+    payload: IModel
+}
+
+export interface SetFetchingModelInfoAction {
+    type: TechnicsActionEnum.SET_FETCHING_MODEL_INFO,
+    payload: boolean
+}
+
 export interface SetRefillsAction {
     type: TechnicsActionEnum.SET_REFILLS,
     payload: IRefill[]
 }
+
 export interface showRefillsByPrinter {
     type: TechnicsActionEnum.SHOW_REFILLS_BY_PRINTER,
     payload: IRefill[]
@@ -60,3 +75,5 @@ export type EventActions =
     | SetModelsAction
     | SetRefillsAction
     | showRefillsByPrinter
+    | SetModelInfoAction
+    | SetFetchingModelInfoAction
