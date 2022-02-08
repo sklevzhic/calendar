@@ -158,41 +158,17 @@ export const AllTechnics: React.FC<AllTechnicsProps> = () => {
     const dispatch = useDispatch()
 
     const {printers, refills} = useTypedSelector(state => state.technicReducer)
-    console.log(refills)
-    const [activeElement, setActiveElement] = useState<IPrinter>({
-        "id": "",
-        "type": "",
-        "name": "",
-        "invent": "",
-        "year": "",
-        "build": "",
-        "room": "",
-        "user": "",
-        "matfyo": "",
-        "zavod": "",
-        "print": false,
-        "problem": "",
-        "faculty":"",
-        "desc":"",
-        "cartridge": "",
-        "date":"",
-        "getdate": "",
-        "isTrusted":"",
-    })
+
+    const [activeElement, setActiveElement] = useState<IPrinter>({} as IPrinter)
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     useEffect(() => {
         console.log(activeElement)
     }, [activeElement])
 
-    // const deleteDevice = (id: string | number) => {
-    //     dispatch(TechnicsActionCreators.deleteDevice(id))
-    // }
-
     const handleActiveElement = (printer: IPrinter) => {
         setActiveElement(printer)
         setIsModalVisible(true)
-        // dispatch(TechnicsActionCreators.addRefill(printer.id))
     }
 
     return <List>
