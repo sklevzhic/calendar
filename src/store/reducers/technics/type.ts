@@ -18,7 +18,8 @@ export enum TechnicsActionEnum {
     SET_REFILLS = "SET_REFILLS",
     SHOW_REFILLS_BY_PRINTER = "SHOW_REFILLS_BY_PRINTER",
     SET_MODEL_INFO = "SET_MODEL_INFO",
-    SET_FETCHING_MODEL_INFO = 'SET_FETCHING_MODEL_INFO'
+    SET_FETCHING_MODEL_INFO = 'SET_FETCHING_MODEL_INFO',
+    DELETE_MODEL_INFO = 'DELETE_MODEL_INFO'
 }
 
 export interface SetPrintersAction {
@@ -44,6 +45,10 @@ export interface SetUsersAction {
 export interface SetModelsAction {
     type: TechnicsActionEnum.SET_MODELS,
     payload: IModel[]
+}
+
+export interface DeleteModelInfoAction {
+    type: TechnicsActionEnum.DELETE_MODEL_INFO,
 }
 
 export interface SetModelInfoAction {
@@ -77,3 +82,4 @@ export type EventActions =
     | showRefillsByPrinter
     | SetModelInfoAction
     | SetFetchingModelInfoAction
+    | DeleteModelInfoAction

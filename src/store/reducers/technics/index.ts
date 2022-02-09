@@ -30,6 +30,8 @@ export const TechnicReducer = (state = initialState, action: EventActions): Tech
              }) }
      case TechnicsActionEnum.SET_MODEL_INFO:
          return { ...state, modelInfo: action.payload, isFetchingModelInfo: false}
+     case TechnicsActionEnum.DELETE_MODEL_INFO:
+         return { ...state, modelInfo: {} as IModel}
      default:
          return state
  }

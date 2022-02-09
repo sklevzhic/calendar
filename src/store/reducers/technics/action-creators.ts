@@ -1,7 +1,7 @@
 import {AppDispatch} from "../../index";
 import {IModel, IPrinter, IRefill, IUser} from "../../../models/Technics";
 import {
-    DeleteDeviceAction,
+    DeleteDeviceAction, DeleteModelInfoAction,
     SetDeviceAction,
     SetFetchingModelInfoAction,
     SetModelInfoAction,
@@ -28,6 +28,7 @@ export const TechnicsActionCreators = {
     setPrinters: (payload: IPrinter[]): SetPrintersAction => ({type: TechnicsActionEnum.SET_PRINTERS, payload}),
     setUsers: (payload: IUser[]): SetUsersAction => ({type: TechnicsActionEnum.SET_USERS, payload}),
     setModels: (payload: IModel[]): SetModelsAction => ({type: TechnicsActionEnum.SET_MODELS, payload}),
+    deleteModelInfo: (): DeleteModelInfoAction => ({type: TechnicsActionEnum.DELETE_MODEL_INFO}),
     setModelInfo: (payload: IModel): SetModelInfoAction => ({type: TechnicsActionEnum.SET_MODEL_INFO, payload}),
     setisFetchingModelInfo: (payload: boolean): SetFetchingModelInfoAction => ({type: TechnicsActionEnum.SET_FETCHING_MODEL_INFO, payload}),
     setRefills: (payload: IRefill[]): SetRefillsAction => ({type: TechnicsActionEnum.SET_REFILLS, payload}),
