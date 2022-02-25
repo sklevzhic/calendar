@@ -70,9 +70,10 @@ export const FormRefill: React.FC<FormRefillProps> = () => {
                     placeholder="Статус"
                     optionFilterProp="children"
                 >
-                    <Option value={"Выдан новый"}>Выдан новый</Option>
-                    <Option value={"На заправке"}>На заправке</Option>
-                    <Option value={"Заправлен"}>Заправлен</Option>
+                    <Option value={"0"}>106</Option>
+                    <Option value={"2"}>Выдан новый</Option>
+                    <Option value={"1"}>На заправке</Option>
+                    <Option value={"3"}>Заправлен</Option>
                 </Select>
             </Form.Item>
         {/* <TechnicInfo activeElement={}/>*/}

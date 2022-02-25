@@ -6,7 +6,7 @@ import {
     SetFetchingModelInfoAction,
     SetModelInfoAction,
     SetModelsAction,
-    SetPrintersAction, SetRefillsAction,
+    SetPrintersAction, SetRefillsAction, SetRefillsFilteredAction,
     SetUsersAction, showRefillsByPrinter,
     TechnicsActionEnum
 } from "./type";
@@ -35,10 +35,10 @@ export const TechnicsActionCreators = {
     setDevice: (payload: IPrinter): SetDeviceAction => ({type: TechnicsActionEnum.SET_DEVICE, payload}),
     showRefills: (payload: IRefill[]): showRefillsByPrinter => ({type: TechnicsActionEnum.SHOW_REFILLS_BY_PRINTER, payload}),
     deleteItem: (payload: string | number): DeleteDeviceAction => ({type: TechnicsActionEnum.DELETE_DEVICE, payload}),
+    setRefillsFiltered: (): SetRefillsFilteredAction => ({type: TechnicsActionEnum.SET_REFILLS_FILTERED}),
     fetchPrinters: () => async (dispatch: AppDispatch) => {
         try {
             let printers = await technicsApi.fetchPrinters()
-            // let printersInfo = await getMoreInfo(technics)
             dispatch(TechnicsActionCreators.setPrinters(printers))
         } catch (e) {
             console.log(e)
@@ -106,7 +106,6 @@ export const TechnicsActionCreators = {
             console.log(e)
         }
     },
-
     addRefill: (obj: IRefill) => async (dispatch: AppDispatch) => {
         try {
             let response = await technicsApi.addRefill(obj)

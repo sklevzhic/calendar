@@ -1,6 +1,6 @@
 import {Badge, Button, Calendar, Modal, Row} from 'antd';
 import React, {useEffect, useState} from 'react'
-import {Moment} from "moment";
+import moment, {Moment} from "moment";
 import {formatDate} from "../utils/date";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 
@@ -8,7 +8,10 @@ import {FormRefill} from "./FormRefill";
 import {colors} from '../consts/status';
 import {Select, Radio, Col} from 'antd';
 import {IRefill} from "../models/Technics";
-const { Option } = Select;
+import {BadgeElem} from "./Badge";
+
+const {Option} = Select;
+
 interface ComponentProps {
 
 }
@@ -40,7 +43,7 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
                 {
                     currentDayEvents.map((ev) => {
                             if (ev.device) {
-                                return <Badge key={ev.id} status={"warning"} text={ev.device.user}/>
+                                return <BadgeElem key={ev.id} status={colors[ev.status]} text={ev.device.user}/>
                             }
                         }
                     )}
@@ -48,6 +51,13 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
             </div>
         );
     }
+
+    function onSelect(value: any) {
+        let a = value.format('YYYY-MM-DD')
+        debugger
+
+    };
+
     function monthCellRender(value: any) {
         const currentDayEvents = filterRefills.filter(el => {
             let date = new Date(el.date)
@@ -69,6 +79,7 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
 
     return <>
         <Calendar
+            onSelect={onSelect}
             headerRender={({value, type, onChange, onTypeChange}) => {
                 const start = 0;
                 const end = 12;
@@ -154,7 +165,8 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
 
                                     {
                                         printers.map(el => {
-                                            return <Select.Option value={el.id}>{`${el.name} ${el.user}`}</Select.Option>
+                                            return <Select.Option
+                                                value={el.id}>{`${el.name} ${el.user}`}</Select.Option>
                                         })
                                     }
                                 </Select>

@@ -8,7 +8,9 @@ import {useTypedSelector} from "../hooks/useTypedSelector";
 import {ModalInfo} from "./Modal";
 import Link from 'antd/lib/typography/Link';
 import { CopyText } from './CopyText';
-import { NavLink } from 'react-router-dom';
+import {NavLink, useHistory} from 'react-router-dom';
+import {colorsAlt} from "../consts/status";
+import {FormRefill} from "./FormRefill";
 
 
 const { Text } = Typography;
@@ -156,15 +158,15 @@ let schema = [
 
 export const AllTechnics: React.FC<AllTechnicsProps> = () => {
     const dispatch = useDispatch()
-
+    const history = useHistory()
     const {printers, refills} = useTypedSelector(state => state.technicReducer)
 
     const [activeElement, setActiveElement] = useState<IPrinter>({} as IPrinter)
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     useEffect(() => {
-        console.log(activeElement)
-    }, [activeElement])
+        dispatch(TechnicsActionCreators.fetchRefills())
+    }, [])
 
     const handleActiveElement = (printer: IPrinter) => {
         setActiveElement(printer)
@@ -202,10 +204,14 @@ export const AllTechnics: React.FC<AllTechnicsProps> = () => {
 
                             </>}
                         </Space>
-                    </Row></ModalInfo>
+
+                        <FormRefill />
+                    </Row>
+
+                    </ModalInfo>
                 }
             </>
-        <Row><Button onClick={() => dispatch(TechnicsActionCreators.fetchRefills())}>Показать все заправки</Button></Row>
+        <Row><Button onClick={() => history.push("/technics/current")}>На заправке</Button></Row>
         {
             schema.map(build => {
                 if (printers.some(el => el.build === build.build)) {
@@ -237,7 +243,7 @@ export const AllTechnics: React.FC<AllTechnicsProps> = () => {
                                                                             {
                                                                                 printer.refills.map(el => {
                                                                                             return <Tooltip title={el.date} placement="top">
-                                                                                                <Avatar style={{ backgroundColor: '#87d068' }}>{ el.date }</Avatar>
+                                                                                                <Avatar style={{ backgroundColor: colorsAlt[el.status]  }}>{ el.date }</Avatar>
                                                                                                 </Tooltip>
                                                                                         })
                                                                             }

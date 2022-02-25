@@ -5,6 +5,7 @@ export interface TechnicsState {
     users: IUser[],
     models: IModel[],
     refills: IRefill[],
+    refillsFilter: any
     modelInfo: IModel,
     isFetchingModelInfo: boolean
 }
@@ -16,6 +17,7 @@ export enum TechnicsActionEnum {
     SET_USERS = "SET_USERS",
     SET_MODELS = "SET_MODELS",
     SET_REFILLS = "SET_REFILLS",
+    SET_REFILLS_FILTERED = "SET_REFILLS_FILTERED",
     SHOW_REFILLS_BY_PRINTER = "SHOW_REFILLS_BY_PRINTER",
     SET_MODEL_INFO = "SET_MODEL_INFO",
     SET_FETCHING_MODEL_INFO = 'SET_FETCHING_MODEL_INFO',
@@ -66,6 +68,11 @@ export interface SetRefillsAction {
     payload: IRefill[]
 }
 
+export interface SetRefillsFilteredAction {
+    type: TechnicsActionEnum.SET_REFILLS_FILTERED
+}
+
+
 export interface showRefillsByPrinter {
     type: TechnicsActionEnum.SHOW_REFILLS_BY_PRINTER,
     payload: IRefill[]
@@ -83,3 +90,4 @@ export type EventActions =
     | SetModelInfoAction
     | SetFetchingModelInfoAction
     | DeleteModelInfoAction
+    | SetRefillsFilteredAction

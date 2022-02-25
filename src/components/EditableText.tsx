@@ -16,7 +16,6 @@ interface EditableTextProps {
 const EditableText: React.FC<EditableTextProps> = ({key, value}) => {
     // @ts-ignore
 
-    debugger
     const [customEnterIconStr, setCustomEnterIconStr] = useState(value);
 
     function onChange(value: string) {

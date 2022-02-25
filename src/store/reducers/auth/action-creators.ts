@@ -9,7 +9,6 @@ export const AuthActionCreators = {
     setUser: (payload: IUser): setUserAction => ({type: AuthActionEnum.SET_USER, payload}),
     setError: (payload: string): setErrorAction => ({type: AuthActionEnum.SET_ERROR, payload}),
     setIsLoading: (payload: boolean): setIsLoadingAction => ({type: AuthActionEnum.SET_IS_LOADING, payload}),
-
     login: (username: string, password: string) => async (dispatch: AppDispatch) => {
         dispatch(AuthActionCreators.setIsLoading(true))
         try {
@@ -24,7 +23,6 @@ export const AuthActionCreators = {
             dispatch(AuthActionCreators.setIsLoading(false))
         }
     },
-
     logout: () => async (dispatch: AppDispatch) => {
         dispatch(AuthActionCreators.setIsAuth(false))
         dispatch(AuthActionCreators.setUser({} as IUser))

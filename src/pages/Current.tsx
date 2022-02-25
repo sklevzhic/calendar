@@ -4,7 +4,8 @@ import {useDispatch} from "react-redux";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 
 import {Avatar, Button, List, Tooltip, Typography} from 'antd';
-import React from "react";
+import React, {useEffect} from "react";
+import {TechnicsActionCreators} from "../store/reducers/technics/action-creators";
 
 
 const {Title} = Typography;
@@ -16,9 +17,14 @@ interface CurrentProps {
 
 export const Current: React.FC<CurrentProps> = () => {
 
+
+    useEffect(() => {
+
+    }, [])
+
     const history = useHistory()
     const dispatch = useDispatch()
-    const {} = useTypedSelector(state => state.technicReducer)
+    const {printers} = useTypedSelector(state => state.technicReducer)
 
     return <div>
         <div>
