@@ -8,7 +8,7 @@ const { Text } = Typography;
 
 interface BadgeElemProps {
     key: string | number,
-    status: [key: string]: string | number,
+    status: any,
     text: string | number
 }
 
