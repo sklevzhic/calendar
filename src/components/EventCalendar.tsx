@@ -1,16 +1,14 @@
-import {Badge, Button, Calendar, Modal, Row} from 'antd';
+import {Button, Calendar, Modal, Row} from 'antd';
 import React, {useEffect, useState} from 'react'
-import moment, {Moment} from "moment";
+import {Moment} from "moment";
 import {formatDate} from "../utils/date";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 
 import {FormRefill} from "./FormRefill";
-import {colors} from '../consts/status';
+
 import {Select, Radio, Col} from 'antd';
 import {IRefill} from "../models/Technics";
 import {BadgeElem} from "./Badge";
-
-const {Option} = Select;
 
 interface ComponentProps {
 
@@ -21,11 +19,10 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
     const {refills, printers} = useTypedSelector(state => state.technicReducer)
     const [filterRefills, setFilterRefills] = useState<IRefill[] | []>([])
     const [activePrinters, setActivePrinters] = useState<string>('')
-
+    console.log(refills)
     useEffect(() => {
         setFilterRefills(refills)
     }, [refills])
-
     useEffect(() => {
         setFilterRefills(refills.filter(el => el.techId === activePrinters))
     }, [activePrinters])
@@ -34,16 +31,17 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
         // setActivePrinters([...activePrinters, value])
         setActivePrinters(value)
     }
-
     function dateCellRender(value: Moment) {
         const formatedDate = formatDate(value.toDate());
         const currentDayEvents = filterRefills.filter(ev => ev.date === formatedDate);
+
         return (
             <div>
                 {
                     currentDayEvents.map((ev) => {
+
                             if (ev.device) {
-                                return <BadgeElem key={ev.id} status={colors[ev.status]} text={ev.device.user}/>
+                                return <BadgeElem key={ev.id} id={ev.id} deviceId={ev.device.id} statusRef={ev.status} text={ev.device.user}/>
                             }
                         }
                     )}
@@ -51,12 +49,10 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
             </div>
         );
     }
-
     function onSelect(value: any) {
         let a = value.format('YYYY-MM-DD')
 
     };
-
     function monthCellRender(value: any) {
         const currentDayEvents = filterRefills.filter(el => {
             let date = new Date(el.date)
@@ -66,10 +62,9 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
             return dateMoment === dateRefill
         });
         return <>                {
-
             currentDayEvents.map((ev) => {
                     if (ev.device) {
-                        return <Badge key={ev.id} status={colors[ev.status]} text={ev.device.user}/>
+                        return <BadgeElem key={ev.id} id={ev.id} deviceId={ev.device.id} statusRef={ev.status} text={ev.device.user}/>
                     }
                 }
             )}

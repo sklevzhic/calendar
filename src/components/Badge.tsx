@@ -1,22 +1,45 @@
 import React from 'react'
-import { Tag, Divider } from 'antd';
-import { Typography } from 'antd';
-import {colors} from "../consts/status";
+import {Tag, Popover, Button, Rate} from 'antd';
+import {Typography} from 'antd';
 import {
-
-    MinusCircleOutlined,
+    LinkOutlined,
+    DeleteOutlined,
 } from '@ant-design/icons';
-const { Text } = Typography;
+import {status} from "../consts/status";
+import {useDispatch} from "react-redux";
+import {TechnicsActionCreators} from "../store/reducers/technics/action-creators";
+import {useHistory} from "react-router-dom";
+
+
+const {Text} = Typography;
 
 
 interface BadgeElemProps {
-    key: string | number,
-    status: any
-    text: string | number
+    id: string | number,
+    statusRef: string | number,
+    text: string | number,
+    deviceId: string | number
 }
 
-export const BadgeElem: React.FC<BadgeElemProps> = ({key,status, text}) => {
-    return <Tag key={key} color={status} icon={<MinusCircleOutlined />}>
-        {text}
-    </Tag>;
+export const BadgeElem: React.FC<BadgeElemProps> = ({id, statusRef, deviceId, text}) => {
+    const dispatch = useDispatch()
+    const history = useHistory()
+    const handleDeleteRefill = () => {
+        dispatch(TechnicsActionCreators.deleteRefill(id))
+    }
+    return <Popover
+        title={<>{status[statusRef].name}
+            <Button onClick={handleDeleteRefill}><DeleteOutlined/></Button>
+            <Button onClick={() => history.push(`/technics/${deviceId}`)}><LinkOutlined/></Button>
+        </>}
+        trigger="click"
+        content={
+            <div>
+                <Rate defaultValue={+statusRef + 1} count={5}/>
+            </div>
+        }
+    >
+        <Tag key={id} color={status[statusRef].color}>
+            {text}</Tag>
+    </Popover>
 };

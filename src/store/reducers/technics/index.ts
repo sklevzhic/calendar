@@ -31,6 +31,9 @@ export const TechnicReducer = (state = initialState, action: EventActions): Tech
                 })}
         case TechnicsActionEnum.SET_REFILLS:
             return {...state, refills: action.payload}
+        case TechnicsActionEnum.SET_REFILL:
+            let obj = {...action.payload, device: state.printers.filter(el => el.id === action.payload.techId)[0]}
+            return {...state, refills: [...state.refills, obj]}
         case TechnicsActionEnum.SHOW_REFILLS_BY_PRINTER:
             return {
                 ...state, printers: state.printers.map(el => {
@@ -45,6 +48,8 @@ export const TechnicReducer = (state = initialState, action: EventActions): Tech
             return {...state, modelInfo: action.payload, isFetchingModelInfo: false}
         case TechnicsActionEnum.DELETE_MODEL_INFO:
             return {...state, modelInfo: {} as IModel}
+        case TechnicsActionEnum.DELETE_REFILL:
+            return { ...state, refills: state.refills.filter(el => el.id !== action.payload) }
         default:
             return state
     }

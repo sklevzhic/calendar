@@ -24,6 +24,9 @@ export const technicsApi = {
     deleteDevice(id: string | number) {
         return axios.delete(`${URL}/printers/${id}`).then(response => response.data)
     },
+    deleteRefill(id: string | number) {
+        return axios.delete(`${URL}/refills/${id}`).then(response => response.data)
+    },
     fetchUsers() {
         return axios.get<IPrinter[]>(`${URL}/users`).then(response => response.data)
     },

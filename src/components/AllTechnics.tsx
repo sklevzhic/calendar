@@ -9,8 +9,8 @@ import {ModalInfo} from "./Modal";
 import Link from 'antd/lib/typography/Link';
 import { CopyText } from './CopyText';
 import {NavLink, useHistory} from 'react-router-dom';
-import {colorsAlt} from "../consts/status";
 import {FormRefill} from "./FormRefill";
+import {status} from "../consts/status";
 
 
 const { Text } = Typography;
@@ -243,7 +243,7 @@ export const AllTechnics: React.FC<AllTechnicsProps> = () => {
                                                                             {
                                                                                 printer.refills.map(el => {
                                                                                             return <Tooltip title={el.date} placement="top">
-                                                                                                <Avatar style={{ backgroundColor: colorsAlt[el.status]  }}>{ el.date }</Avatar>
+                                                                                                <Avatar style={{ backgroundColor: status[el.status].color  }}>{ el.date }</Avatar>
                                                                                                 </Tooltip>
                                                                                         })
                                                                             }

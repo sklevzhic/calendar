@@ -1,25 +1,29 @@
 
-export const status = {
-    0: "Поступила заявка",
-    1: "На заправке",
-    2: "Выдан новый",
-    3: "Заправлен",
-    4: "Мажет, необходима замена"
-}
+export const status: any = {
 
-export const colors: any = {
-    0: "default",
-    1: "processing",
-    2: "warning",
-    3: "success",
-    4: "error"
+    0: {
+        name: "Поступила заявка",
+        style: "default",
+        color: "#b6b6b6"
+    },
+    1: {
+        name: "На заправке",
+        style: "processing",
+        color: "#6c7ac4"
+    },
+    2: {
+        name: "Выдан новый",
+        style: "warning",
+        color: "#ec8a57"
+    },
+    3: {
+        name: "Заправлен",
+        style: "success",
+        color: "#88d770"
+    },
+    4:  {
+        name: "Мажет, необходима замена",
+        style: "error",
+        color: "#ff7d7d"
+    },
 }
-
-export const colorsAlt: any = {
-    0: "#b6b6b6",
-    1: "#0022dc",
-    2: "#ff5800",
-    3: "#33d200",
-    4: "#ff6363",
-}
-
