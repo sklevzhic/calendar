@@ -1,17 +1,22 @@
 import React from 'react'
-import {Badge, Tooltip} from "antd";
+import { Tag, Divider } from 'antd';
 import { Typography } from 'antd';
 import {colors} from "../consts/status";
+import {
 
+    MinusCircleOutlined,
+} from '@ant-design/icons';
 const { Text } = Typography;
 
 
 interface BadgeElemProps {
     key: string | number,
-    status: any,
+    status: any
     text: string | number
 }
 
-export const BadgeElem: React.FC<BadgeElemProps> = ({key, status, text}) => {
-    return <Badge key={key} status={status} text={text}/>;
+export const BadgeElem: React.FC<BadgeElemProps> = ({key,status, text}) => {
+    return <Tag key={key} color={status} icon={<MinusCircleOutlined />}>
+        {text}
+    </Tag>;
 };

@@ -54,7 +54,6 @@ export const EventCalendar: React.FC<ComponentProps> = () => {
 
     function onSelect(value: any) {
         let a = value.format('YYYY-MM-DD')
-        debugger
 
     };
 

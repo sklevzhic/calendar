@@ -60,7 +60,6 @@ const EditableText: React.FC<EditableTextProps> = ({key, value}) => {
                         icon: <HighlightOutlined />,
                         tooltip: 'click to edit text',
                         onChange: setCustomEnterIconStr,
-                        // enterIcon: <CheckOutlined />,
                     }}
                 >
                     {customEnterIconStr}
