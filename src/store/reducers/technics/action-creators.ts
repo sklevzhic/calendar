@@ -102,7 +102,14 @@ export const TechnicsActionCreators = {
             console.log(e)
         }
     },
-
+    updateStatusCartridge:(id: string | number, value: number) => async (dispatch: AppDispatch) => {
+        try {
+            let response = await technicsApi.updateStatusCartridge(id, value)
+            debugger
+        } catch (e) {
+            console.log(e)
+        }
+    },
     deleteRefill: (id: string | number) => async (dispatch: AppDispatch) => {
         try {
             let response = await technicsApi.deleteRefill(id)

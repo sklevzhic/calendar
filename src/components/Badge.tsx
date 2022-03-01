@@ -27,6 +27,10 @@ export const BadgeElem: React.FC<BadgeElemProps> = ({id, statusRef, deviceId, te
     const handleDeleteRefill = () => {
         dispatch(TechnicsActionCreators.deleteRefill(id))
     }
+
+    const handleChangeRate = (value: number) => {
+        dispatch(TechnicsActionCreators.updateStatusCartridge(id, value))
+    };
     return <Popover
         title={<>{status[statusRef].name}
             <Button onClick={handleDeleteRefill}><DeleteOutlined/></Button>
@@ -35,7 +39,7 @@ export const BadgeElem: React.FC<BadgeElemProps> = ({id, statusRef, deviceId, te
         trigger="click"
         content={
             <div>
-                <Rate defaultValue={+statusRef + 1} count={5}/>
+                <Rate onChange={handleChangeRate} defaultValue={+statusRef} count={5}/>
             </div>
         }
     >

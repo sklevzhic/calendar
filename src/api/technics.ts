@@ -36,4 +36,8 @@ export const technicsApi = {
     fetchRefills() {
         return axios.get<IRefill[]>(`${URL}/refills`).then(response => response.data)
     },
+    updateStatusCartridge(id: string | number, value: number) {
+        let obj = { "status": value}
+        return axios.patch(`${URL}/refills/${id}`, obj ).then(response => response.data)
+    }
 }
