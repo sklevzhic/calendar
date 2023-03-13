@@ -1,7 +1,7 @@
 import axios from "axios";
 import {IModel, IPrinter, IRefill} from "../models/Technics";
 
-let URL = 'https://printersipkip.herokuapp.com'
+let URL = 'https://api-cartriges-express.onrender.com'
 // let URL = `http://localhost:1337`
 
 export const technicsApi = {

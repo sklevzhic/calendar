@@ -231,7 +231,7 @@ export const AllTechnics: React.FC<AllTechnicsProps> = () => {
                                                             if (printer.room === room)
                                                             return <List.Item key={printer.id}>
                                                                 <List.Item.Meta
-                                                                    avatar={<Avatar src={`https://raw.githubusercontent.com/sklevzhic/calendar/main/src/assets/img/technics/${printer.name}.jpg`}/>}
+                                                                    // avatar={<Avatar src={`https://raw.githubusercontent.com/sklevzhic/calendar/main/src/assets/img/technics/${printer.name}.jpg`}/>}
                                                                     title={<NavLink to={`/technics/${printer.id}`} href={"#"}>{`[${printer.type}] ${printer.name}`}</NavLink>}
                                                                     description={` ${printer.user}` }
                                                                 />
@@ -243,7 +243,7 @@ export const AllTechnics: React.FC<AllTechnicsProps> = () => {
                                                                             {
                                                                                 printer.refills.map(el => {
                                                                                             return <Tooltip title={el.date} placement="top">
-                                                                                                <Avatar style={{ backgroundColor: status[el.status].color  }}>{ el.date }</Avatar>
+                                                                                                {/*<Avatar style={{ backgroundColor: status[el.status].color  }}>{ el.date }</Avatar>*/}
                                                                                                 </Tooltip>
                                                                                         })
                                                                             }
